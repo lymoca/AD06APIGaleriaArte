@@ -22,6 +22,13 @@ public class HoldController {
         return ResponseEntity.ok(holdService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Hold> getHoldById(@PathVariable String id) {
+        return holdService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Hold> createHold(@RequestBody Hold hold)
     {

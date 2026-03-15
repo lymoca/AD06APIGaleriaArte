@@ -1,5 +1,7 @@
 package com.galeria.gestion.artes.controllers;
 
+import com.galeria.gestion.artes.dto.ObraFichaTecnicaDTO;
+import com.galeria.gestion.artes.dto.ObraInventarioDTO;
 import com.galeria.gestion.artes.model.ArtLeasing;
 import com.galeria.gestion.artes.model.Obra;
 import com.galeria.gestion.artes.services.ObraService;
@@ -31,6 +33,16 @@ public class ObraController {
             return ResponseEntity.ok(obraOpt.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/catalogo")
+    public ResponseEntity<List<ObraFichaTecnicaDTO>> getCatalogoPublico() {
+        return ResponseEntity.ok(obraService.obtenerCatalogo());
+    }
+
+    @GetMapping("/inventario")
+    public ResponseEntity<List<ObraInventarioDTO>> getInventarioInterno() {
+        return ResponseEntity.ok(obraService.obtenerInventario());
     }
 
     @PostMapping

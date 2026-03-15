@@ -1,13 +1,17 @@
 package com.galeria.gestion.artes.services;
 
+import com.galeria.gestion.artes.dto.ObraFichaTecnicaDTO;
+import com.galeria.gestion.artes.dto.ObraInventarioDTO;
 import com.galeria.gestion.artes.model.ArtLeasing;
 import com.galeria.gestion.artes.model.Obra;
 import com.galeria.gestion.artes.repositories.ObraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ObraService {
@@ -64,5 +68,36 @@ public class ObraService {
             }
         }
         return false;
+    }
+
+    public List<ObraFichaTecnicaDTO> obtenerCatalogo() {
+        return obraRepository.findAll().stream().map(obra -> {
+            ObraFichaTecnicaDTO dto = new ObraFichaTecnicaDTO();
+            dto.setId(obra.getId());
+            dto.setTitulo(obra.getTitulo());
+            dto.setAnio(obra.getAnio());
+            dto.setEstilo(obra.getEstilo());
+
+            if (obra.getAutor() != null) {
+                dto.setNombreAutor(obra.getAutor().getNombre());
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    public List<ObraInventarioDTO> obtenerInventario() {
+        return obraRepository.findAll().stream().map(obra -> {
+            ObraInventarioDTO dto = new ObraInventarioDTO();
+            dto.setId(obra.getId());
+            dto.setTitulo(obra.getTitulo());
+            dto.setAnio(obra.getAnio());
+            dto.setPrecio(obra.getPrecio());
+            dto.setEstilo(obra.getEstilo());
+            dto.setHistorialLeasing(obra.getHistorialAlquiler());
+            if (obra.getAutor() != null) {
+                dto.setNombreAutor(obra.getAutor().getNombre());
+            }
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

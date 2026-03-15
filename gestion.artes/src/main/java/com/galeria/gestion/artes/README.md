@@ -14,7 +14,7 @@ Esta API ha sido diseñada teniendo en cuenta el ecosistema de la gestión cultu
 * **Referencias Cruzadas (`@DBRef`):** Las obras hacen referencia a su `Artista` creador, y los holds referencian a la `Obra` reservada, evitando la duplicación de datos.
 * **Patrón DTO:** Se utilizan `ObraFichaTecnicaDTO` y `ObraInventarioDTO` para filtrar información financiera (precios y clientes) en los endpoints públicos.
 * **Índices TTL:** La colección `holds` tiene un índice que destruye automáticamente la reserva pasadas 48 horas (`expireAfter = "48h"`).
-
+* **Robustez de Datos (Wrappers):** Uso de clases Wrapper (Integer, Double) en los modelos para permitir valores nulos, esencial para distinguir entre obras sin tasar y obras con valor cero.
 ---
 
 ## 🌐 Endpoints de la API
@@ -32,8 +32,8 @@ Gestión de los creadores de las obras.
 Gestión del inventario y catálogo. Incluye el historial anidado de alquileres (`ArtLeasing`).
 
 * `GET /api/obras` : Obtiene la lista general de obras sin filtrar.
-* `GET /api/obras/catalogo` : Obtiene el catálogo público (Usa DTO para ocultar precios e historial de clientes).
-* `GET /api/obras/inventario` : Obtiene el inventario interno completo para peritaje (Usa DTO con toda la información financiera).
+* `GET /api/obras/catalogo` : Obtiene el catálogo público (Usa FichaTecnicaDTO para ocultar precios e historial de clientes).
+* `GET /api/obras/inventario` : Obtiene el inventario interno completo para peritaje (Usa InventarioDTO con toda la información financiera).
 * `GET /api/obras/{id}` : Obtiene la información detallada de una obra por su ID.
 * `POST /api/obras` : Registra una nueva obra (requiere el ID del artista en el body para el `@DBRef`).
 * `PUT /api/obras/{id}` : Actualiza la información general de una obra.

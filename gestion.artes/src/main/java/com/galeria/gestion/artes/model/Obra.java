@@ -23,9 +23,9 @@ public class Obra {
     @Id
     private String id;
     private String titulo;
-    private int anio;
+    private Integer anio;
     private LocalDate fechaRegistro;
-    private double precio;
+    private Double precio;
 
     @Indexed(direction = IndexDirection.ASCENDING)
     private String estilo;

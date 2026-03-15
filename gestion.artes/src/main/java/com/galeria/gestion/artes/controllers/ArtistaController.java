@@ -22,6 +22,15 @@ public class ArtistaController {
         return ResponseEntity.ok(artistaService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Artista> getArtistaById(@PathVariable String id) {
+        Optional<Artista> artistaOpt = artistaService.findById(id);
+        if (artistaOpt.isPresent()) {
+            return ResponseEntity.ok(artistaOpt.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<Artista> createArtista(@RequestBody Artista artista)
     {
