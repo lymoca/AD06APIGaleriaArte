@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ObraRepository extends MongoRepository<Obra,String> {
-    List<Obra> findByAutorOrderByFechaRegistroDesc(Artista autor);
 
 }
