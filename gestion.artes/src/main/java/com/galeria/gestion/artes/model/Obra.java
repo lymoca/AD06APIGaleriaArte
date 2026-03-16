@@ -25,10 +25,10 @@ public class Obra {
     private String titulo;
     private Integer anio;
     private LocalDate fechaRegistro;
-    private Double precio;
+    private String estilo;
 
     @Indexed(direction = IndexDirection.ASCENDING)
-    private String estilo;
+    private Double precio;
 
     private List<ArtLeasing> historialAlquiler;
 
